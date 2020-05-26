@@ -5,12 +5,19 @@
 const express = require('express');
 const path = require('path');
 let app = express();
+const fs = require('fs');
 
 //Serve public files
 app.use(express.static('public'));
 
 //Routing
 app.get('/',gamePage);
+
+app.post('/getImageNames', (req, res) => {
+    fs.readdir(path.join(__dirname, 'public', 'images'), (err, files) => {
+        res.send(files);
+    })
+})
 
 //Routing functions
 function gamePage(req,res){
