@@ -23,13 +23,14 @@ function loadImages(){
                 newimg.src = 'images/' + res[x];
                 imgArr.push(newimg,newimg);
             }
-            console.log(imgArr.length);
+
             imgArr = shuffle(imgArr);
 
             for(let x=0;x<imgArr.length;x++){
                 let div = document.getElementById("gridDiv" + (x+1));
                 let img = document.createElement("IMG");
                 img.src = imgArr[x].src;
+                img.className = 'Img-thumbnail';
                 //img.style.visibility = 'hidden';
                 div.appendChild(img);
             }
