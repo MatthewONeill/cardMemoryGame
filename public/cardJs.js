@@ -1,5 +1,10 @@
 //Javascript stuff
 
+//Global game variables
+let gameInSession = false;
+
+
+//Array randomization
 function shuffle(array) {
     let m = array.length, t, i;
     while (m) {
@@ -11,6 +16,8 @@ function shuffle(array) {
     return array;
 }
 
+//Called onload to load the image tiles on the screen
+//TODO make the images invisible to start
 function loadImages(){
     let imgArr = [];
 
@@ -31,7 +38,7 @@ function loadImages(){
                 let img = document.createElement("IMG");
                 img.src = imgArr[x].src;
                 img.className = 'Img-thumbnail';
-                //img.style.visibility = 'hidden';
+                img.style.visibility = 'hidden';
                 div.appendChild(img);
             }
         }
@@ -40,3 +47,18 @@ function loadImages(){
     xhttp.send();    
 };
 
+//Initialize game
+function startGame(){
+    //Make images visible
+    for(let x=0;x<16;x++){
+        let img = document.getElementById("gridDiv" + (x+1)).childNodes[1];
+        if(img.style.visibility === 'visible'){
+            img.style.visibility = 'hidden';
+        }else{
+            img.style.visibility = 'visible';
+        }   
+    }
+    //Disable start game button during the game
+    let gamebutton = document.getElementById('startbutton');
+    gamebutton.disabled = true;
+}
