@@ -1,13 +1,13 @@
 //Javascript stuff
 
 //TODO: 
-//-Add a delay at the start of the game that shows the images on the screen for a few seconds that way the player will be able to memorize their positions
-//-Make it so that when you mess up a flip it just flips the cards back and doesnt end the game
+//Display the tries left + score
 //-Make a proper win condition instead of the nothing there is currently
-//Clean up useless commented code (The stuff in the startGame function for ex)
-//Better card cover
-//Some of this is pretty spaghetti. Can probably be refactored (The visible/hidden stuff is all over the place)
 //Better card cover/back
+
+
+//Clean up useless commented code (The stuff in the startGame function for ex)
+//Some of this is pretty spaghetti. Can probably be refactored (The visible/hidden stuff is all over the place)
 //Further improvements (scoreboard, database, ect)
 
 //TESTING NOTE: if you want to test the game logic then you can not randomize the array (Comment line 47).
@@ -15,7 +15,10 @@
 //Global game variables
 let gameInSession = false;
 let currentImage = null;
+let currentCover = null;
 let cardIndex = 0;
+let tries = 0;
+let score = 0;
 
 //Array randomization
 function shuffle(array) {
@@ -76,21 +79,9 @@ function loadImages(){
 
 //Initialize game
 function startGame(){
-    //Make images visible
-    //for(let x=0;x<16;x++){
-    //    //let img = document.getElementById('gridDiv' + (x+1)).childNodes[2];
-    //    let cover = document.getElementById('gridDiv' + (x+1)).childNodes[1];
-    //    if(cover.style.visibility === 'visible'){
-            //img.style.visibility = 'hidden';
-    //        cover.style.visibility = 'hidden';
-    //    }else{
-    //        //img.style.visibility = 'visible';
-    //        cover.style.visibility = 'visible';
-    //    }   
-    //}
-    
 
     flipCards();
+    
     //Disable start game button during the game
     let gamebutton = document.getElementById('startbutton');
     gamebutton.disabled = true;
@@ -104,22 +95,33 @@ function pictureClicked(img,cover){
 
     if(currentImage == null){
         currentImage = img;
+        currentCover = cover;
     }else{
         if(currentImage.src != img.src){
-            alert("You Lose");
-            location.reload();
+            if(tries < 3){
+                setTimeout(function(){ //if they got the wrong match, then hide the images and show the covers
+                    currentCover.style.visibility = 'visible'; 
+                    currentImage.style.visibility = 'hidden';
+                    cover.style.visibility = 'visible';
+                    img.style.visibility = 'hidden';
+                    tries++;
+                }, 1000)  //1 second timeout to show them the card that they flipped       
+            } 
+            else{
+                alert("You Lose");
+                location.reload();
+            }
         }else{
+            score++;
             currentImage = null; 
         }
     }
 }
 
 
-function flipCards(){
+function flipCards(){ //flips each card individually 
     
-    
-
-    if(cardIndex != 0){
+    if(cardIndex != 0){ 
         let prevImg = document.getElementById('gridDiv' + (cardIndex)).childNodes[2];
         prevImg.style.visibility = 'hidden';
     }
@@ -134,5 +136,5 @@ function flipCards(){
     img.style.visibility = 'visible';
     cardIndex++;
 
-    setTimeout(flipCards, 2000);
+    setTimeout(flipCards, 1000);
 }
