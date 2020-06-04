@@ -2,10 +2,7 @@
 
 //TODO: 
 //Display the tries left + score
-//-Make a proper win condition instead of the nothing there is currently
 //Better card cover/back
-
-
 //Clean up useless commented code (The stuff in the startGame function for ex)
 //Some of this is pretty spaghetti. Can probably be refactored (The visible/hidden stuff is all over the place)
 //Further improvements (scoreboard, database, ect)
@@ -19,6 +16,7 @@ let currentCover = null;
 let cardIndex = 0;
 let tries = 0;
 let score = 0;
+let maxPairs = 0;
 
 //Array randomization
 function shuffle(array) {
@@ -48,7 +46,8 @@ function loadImages(){
                 imgArr.push(newimg,newimg);
             }
 
-            imgArr = shuffle(imgArr);
+            //imgArr = shuffle(imgArr);//Comment this line for easy testing
+            maxPairs = imgArr.length/2;
 
             for(let x=0;x<imgArr.length;x++){
                 let div = document.getElementById("gridDiv" + (x+1));
@@ -61,7 +60,6 @@ function loadImages(){
                 img.style.visibility = 'hidden';
                 img.style.position = 'relative';
 
-                cover.onclick = ()=>pictureClicked(img,cover);
                 cover.className = 'Img-thumbnail';
                 cover.src = 'images/' + res[0];
                 cover.id = 'cover' + x;
@@ -79,13 +77,11 @@ function loadImages(){
 
 //Initialize game
 function startGame(){
-
-    flipCards();
-    
     //Disable start game button during the game
     let gamebutton = document.getElementById('startbutton');
     gamebutton.disabled = true;
-    
+
+    flipCards();
 }
 
 //Called when an image is clicked. The game is 'played' in this function.
@@ -109,16 +105,28 @@ function pictureClicked(img,cover){
                 }, 1000)  //1 second timeout to show them the card that they flipped       
             } 
             else{
-                alert("You Lose");
+                alert("You Lose.");
                 location.reload();
             }
         }else{
             score++;
             currentImage = null; 
+            if(score == maxPairs){
+                alert("You Win!");
+                setTimeout(()=>location.reload(),500);
+            }
         }
     }
 }
 
+//Adds event listeners to the cards after the initial card flip happens
+function setOnClicks(){
+    for(let x=0;x<maxPairs*2;x++){
+        let cover = document.getElementById('cover' + x);
+        let img = document.getElementById('img' + x);
+        cover.onclick = ()=>pictureClicked(img,cover);
+    }
+}
 
 function flipCards(){ //flips each card individually 
     
@@ -126,7 +134,10 @@ function flipCards(){ //flips each card individually
         let prevImg = document.getElementById('gridDiv' + (cardIndex)).childNodes[2];
         prevImg.style.visibility = 'hidden';
     }
-    if(cardIndex == 16){return;}
+    if(cardIndex == 16){
+        setOnClicks();
+        return;
+    }
 
     for (let i = 0; i < 16; i++){
         let cover = document.getElementById('gridDiv' + (i+1)).childNodes[1];
@@ -137,5 +148,5 @@ function flipCards(){ //flips each card individually
     img.style.visibility = 'visible';
     cardIndex++;
 
-    setTimeout(flipCards, 1000);
+    setTimeout(flipCards, 750);
 }
