@@ -46,7 +46,7 @@ function loadImages(){
                 imgArr.push(newimg,newimg);
             }
 
-            //imgArr = shuffle(imgArr);//Comment this line for easy testing
+            imgArr = shuffle(imgArr);//Comment this line for easy testing
             maxPairs = imgArr.length/2;
 
             for(let x=0;x<imgArr.length;x++){
