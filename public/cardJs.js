@@ -104,6 +104,7 @@ function pictureClicked(img,cover){
                     currentImage.style.visibility = 'hidden';
                     cover.style.visibility = 'visible';
                     img.style.visibility = 'hidden';
+                    currentImage = null;
                     tries++;
                 }, 1000)  //1 second timeout to show them the card that they flipped       
             } 
