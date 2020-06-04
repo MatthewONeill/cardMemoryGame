@@ -98,7 +98,7 @@ function pictureClicked(img,cover){
         currentCover = cover;
     }else{
         if(currentImage.src != img.src){
-            if(tries < 3){
+            if(tries < 2){
                 setTimeout(function(){ //if they got the wrong match, then hide the images and show the covers
                     currentCover.style.visibility = 'visible'; 
                     currentImage.style.visibility = 'hidden';
