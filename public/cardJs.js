@@ -15,6 +15,7 @@
 //Global game variables
 let gameInSession = false;
 let currentImage = null;
+let cardIndex = 0;
 
 //Array randomization
 function shuffle(array) {
@@ -76,20 +77,24 @@ function loadImages(){
 //Initialize game
 function startGame(){
     //Make images visible
-    for(let x=0;x<16;x++){
-        //let img = document.getElementById('gridDiv' + (x+1)).childNodes[2];
-        let cover = document.getElementById('gridDiv' + (x+1)).childNodes[1];
-        if(cover.style.visibility === 'visible'){
+    //for(let x=0;x<16;x++){
+    //    //let img = document.getElementById('gridDiv' + (x+1)).childNodes[2];
+    //    let cover = document.getElementById('gridDiv' + (x+1)).childNodes[1];
+    //    if(cover.style.visibility === 'visible'){
             //img.style.visibility = 'hidden';
-            cover.style.visibility = 'hidden';
-        }else{
-            //img.style.visibility = 'visible';
-            cover.style.visibility = 'visible';
-        }   
-    }
+    //        cover.style.visibility = 'hidden';
+    //    }else{
+    //        //img.style.visibility = 'visible';
+    //        cover.style.visibility = 'visible';
+    //    }   
+    //}
+    
+
+    flipCards();
     //Disable start game button during the game
     let gamebutton = document.getElementById('startbutton');
     gamebutton.disabled = true;
+    
 }
 
 //Called when an image is clicked. The game is 'played' in this function.
@@ -107,4 +112,27 @@ function pictureClicked(img,cover){
             currentImage = null; 
         }
     }
+}
+
+
+function flipCards(){
+    
+    
+
+    if(cardIndex != 0){
+        let prevImg = document.getElementById('gridDiv' + (cardIndex)).childNodes[2];
+        prevImg.style.visibility = 'hidden';
+    }
+    if(cardIndex == 16){return;}
+
+    for (let i = 0; i < 16; i++){
+        let cover = document.getElementById('gridDiv' + (i+1)).childNodes[1];
+        cover.style.visibility = 'visible';   
+    }
+      
+    img = document.getElementById('gridDiv' + (cardIndex + 1)).childNodes[2];
+    img.style.visibility = 'visible';
+    cardIndex++;
+
+    setTimeout(flipCards, 2000);
 }
