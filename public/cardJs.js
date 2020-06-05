@@ -1,8 +1,8 @@
 //Javascript stuff
 
 //TODO: 
-//Display the tries left + score
 //Better card cover/back
+//Better scorebox look
 //Clean up useless commented code (The stuff in the startGame function for ex)
 //Some of this is pretty spaghetti. Can probably be refactored (The visible/hidden stuff is all over the place)
 //Further improvements (scoreboard, database, ect)
@@ -14,7 +14,7 @@ let gameInSession = false;
 let currentImage = null;
 let currentCover = null;
 let cardIndex = 0;
-let tries = 0;
+let tries = 3;
 let score = 0;
 let maxPairs = 0;
 
@@ -81,7 +81,11 @@ function startGame(){
     let gamebutton = document.getElementById('startbutton');
     gamebutton.disabled = true;
 
+    document.getElementById('container2').style.visibility = 'visible';
+
     flipCards();
+
+    
 }
 
 //Called when an image is clicked. The game is 'played' in this function.
@@ -89,19 +93,22 @@ function pictureClicked(img,cover){
     cover.style.visibility = 'hidden';
     img.style.visibility = 'visible';
 
+    
     if(currentImage == null){
         currentImage = img;
         currentCover = cover;
     }else{
         if(currentImage.src != img.src){
-            if(tries < 2){
+            if(tries > 1){
                 setTimeout(function(){ //if they got the wrong match, then hide the images and show the covers
                     currentCover.style.visibility = 'visible'; 
                     currentImage.style.visibility = 'hidden';
                     cover.style.visibility = 'visible';
                     img.style.visibility = 'hidden';
                     currentImage = null;
-                    tries++;
+                    tries--;
+                    document.getElementById('triesNum').innerHTML = tries;
+                    
                 }, 1000)  //1 second timeout to show them the card that they flipped       
             } 
             else{
@@ -110,6 +117,7 @@ function pictureClicked(img,cover){
             }
         }else{
             score++;
+            document.getElementById('scoresNum').innerHTML = score;
             currentImage = null; 
             if(score == maxPairs){
                 alert("You Win!");
