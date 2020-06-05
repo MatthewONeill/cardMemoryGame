@@ -1,0 +1,22 @@
+.col-3 {
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.scoreBox{
+    border: solid red; 
+    text-align: center;
+    padding-bottom: 20;
+    margin-left: 20;
+       
+}
+
+.triesBox{
+    border: solid blue;
+    text-align: center;
+}
+
+.container2{
+    visibility: hidden;
+}
+
