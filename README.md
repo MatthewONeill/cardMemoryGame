@@ -1,7 +1,10 @@
 # cardMemoryGame
 Concentration game
 
-Run: node server.js
+
+Run: 
+1) npm install 
+2) node server.js
 
 Navigate: localhost:3000
 
