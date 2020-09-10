@@ -1,22 +1,58 @@
+body{
+    background-color: #A9A9A9;
+}
+
+h1{
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
 .col-3 {
     padding-bottom: 20px;
+    display: flex;
+    justify-content: center;
     text-align: center;
+    box-shadow: 0 7px 14px 0 rgba(39,42,49,.08),0 3px 6px 0 rgba(0,0,0,.05);
+    border-radius: 10px;
 }
 
 .scoreBox{
-    border: solid red; 
+    margin-top: 50px;
+    border: none;
     text-align: center;
     padding-bottom: 20;
     margin-left: 20;
+    background: #343a40;
+    color: #505664;
+    box-shadow: 0 7px 14px 0 rgba(39,42,49,.08),0 3px 6px 0 rgba(0,0,0,.05);
+    border-radius: 10px;
        
 }
 
 .triesBox{
-    border: solid blue;
+    margin-top: 50px;
+    border: none;
     text-align: center;
+    background: #343a40;
+    color: #505664;
+    box-shadow: 0 7px 14px 0 rgba(39,42,49,.08),0 3px 6px 0 rgba(0,0,0,.05);
+    border-radius: 10px;
 }
 
 .container2{
     visibility: hidden;
 }
 
+p{
+    color: white;
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
+.Img-thumbnail{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-top: 13%;
+    background-color: #A9A9A9;
+    border: none;
+    border-radius: 10px;
+}
